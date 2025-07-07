@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Register</title></head>
+<body>
+    <h2>Register Your SMTP Email</h2>
+    <form method="POST" action="{{ url_for('auth_bp.register') }}">
+        <label>Email:</label>
+        <input type="email" name="email" required><br><br>
+        <label>SMTP Password:</label>
+        <input type="password" name="password" required><br><br>
+        <button type="submit">Register</button>
+    </form>
+    <p><a href="{{ url_for('auth_bp.login') }}">Already have an account? Login here</a></p>
+</body>
+</html>

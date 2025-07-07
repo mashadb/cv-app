@@ -1,0 +1,192 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  background: #fff;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.form-content {
+  width: 50%;
+  padding: 40px;
+}
+
+.form-content h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #666;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #00bcd4;
+  outline: none;
+}
+
+.form-group.checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.form-group.checkbox input {
+  width: auto;
+  margin-right: 10px;
+}
+
+.form-submit {
+  /* width: 100%;  remove this line */
+  background-color: #0077B5;
+  color: #fff;
+  padding: 10px 25px;   /* adjust padding for a better size */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block; /* so it wraps content */
+}
+
+.form-submit:hover {
+  background-color: #0077b5;
+}
+
+.image-content {
+  width: 50%;
+  background: transparent; /* or #fff if you want */
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  align-items: center;    /* center horizontally */
+  justify-content: center;
+  padding: 20px;          /* optional spacing */
+}
+}
+
+.image-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .form-content,
+  .image-content {
+    width: 100%;
+  }
+
+  .image-content {
+    padding: 20px;
+  }
+}
+.login-link {
+  margin-top: 20px;
+  text-align: center;
+  color: #555;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #0077B5; /* LinkedIn blue */
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+.image-content {
+  width: 50%;
+  background: transparent;
+  display: flex;
+  flex-direction: column; /* vertical stack */
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.image-content img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 15px rgba(0,0,0,0.1); */
+}
+
+
+.signup-link {
+  text-align: center;
+  color: #555;
+  font-size: 14px;
+}
+
+.signup-link a {
+  color: #0077B5; /* LinkedIn blue */
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+.form-submit {
+  background-color: #0077B5;  /* LinkedIn blue */
+  color: #fff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.form-submit:hover {
+  background-color: #005983;
+}
