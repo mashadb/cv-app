@@ -18,7 +18,7 @@
 </head>
 <body>
   <div class="container">
-    <h2 class="mb-4 text-center">📬 CV Sender Dashboard</h2>
+    <h2 class="mb-4 text-center">📬 Welcome, {{ user.email }}!</h2>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -57,11 +57,21 @@
       </div>
     </div>
 
-    <!-- 📊 Application Status -->
+    <!-- 📊 Submission Status Placeholder -->
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Application Status</h5>
-        <p class="card-text">No applications submitted yet.</p>
+        <h5 class="card-title">Submission Status</h5>
+        {% if user.submissions %}
+          <ul class="list-group">
+            {% for submission in user.submissions %}
+              <li class="list-group-item">
+                Sent to {{ submission.recipient }} on {{ submission.timestamp }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="card-text">No CVs submitted yet.</p>
+        {% endif %}
       </div>
     </div>
   </div>
