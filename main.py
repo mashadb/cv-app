@@ -1,6 +1,6 @@
 import os
 import logging
-from flask import Flask
+from flask import Flask, request
 from routes.cv_routes import cv_bp
 from cryptography.fernet import Fernet
 
@@ -17,8 +17,8 @@ try:
 except Exception as e:
     logger.error(f"❌ Fernet key loading failed: {e}")
 
-# ⚙️ Initialize Flask App
-app = Flask(__name__)
+# ⚙️ Initialize Flask App with template/static support
+app = Flask(__name__, template_folder="templates", static_folder="static")
 app.secret_key = os.getenv("SECRET_KEY", "fallback-secret")
 
 # 🧩 Register Blueprint with logging
@@ -27,6 +27,11 @@ try:
     logger.info("✅ cv_bp registered successfully.")
 except Exception as e:
     logger.error(f"❌ Failed to register cv_bp: {e}")
+
+# 🔍 Log each incoming request
+@app.before_request
+def log_request():
+    logger.debug(f"📩 Incoming request: {request.method} {request.path}")
 
 # 🩺 Health check endpoint for Azure
 @app.route("/health")
