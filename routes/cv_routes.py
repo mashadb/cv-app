@@ -1,14 +1,24 @@
-from flask import Blueprint, request, redirect, url_for, flash, session
+from flask import Blueprint, request, redirect, url_for, flash, session, render_template
 from models.user import User
 from utils.cv_dispatcher import send_cv
 import os
 from werkzeug.utils import secure_filename
 
-cv_bp = Blueprint('cv_bp', __name__)
+cv_bp = Blueprint("cv_bp", __name__)
 
-@cv_bp.route('/upload', methods=['POST'])
+# 🏠 Homepage route for Azure root requests
+@cv_bp.route("/")
+def home():
+    user_id = session.get("user_id")
+    if user_id:
+        user = User.query.get(user_id)
+        return render_template("dashboard.html", user=user)
+    return render_template("index.html")  # Optional public landing page
+
+# 📤 CV Upload Handler
+@cv_bp.route("/upload", methods=["POST"])
 def upload_cv():
-    user_id = session.get('user_id')
+    user_id = session.get("user_id")
     if not user_id:
         flash("❌ Please log in to send your CV.", "danger")
         return redirect(url_for("auth_bp.login"))
@@ -25,13 +35,13 @@ def upload_cv():
         flash("❌ Both recipient email and CV file are required.", "danger")
         return redirect(url_for("dashboard"))
 
-    # 🔐 Ensure Gmail OAuth is connected
+    # 🔐 Gmail OAuth Check
     gmail_creds = session.get("gmail_credentials")
     if not gmail_creds:
         flash("⚠️ Gmail not connected. Please authorize first.", "warning")
         return redirect(url_for("dashboard"))
 
-    # 📁 Save CV to temp location
+    # 💾 Save File Temporarily
     try:
         upload_folder = os.path.join("static", "uploads")
         os.makedirs(upload_folder, exist_ok=True)
@@ -43,11 +53,11 @@ def upload_cv():
         flash("❌ Error saving CV file.", "danger")
         return redirect(url_for("dashboard"))
 
-    # 📤 Send email via Gmail
+    # 📧 Send via Gmail
     try:
         subject = f"📄 CV Submission from {user.email}"
         html_body = f"<h3>{user.email} submitted a CV.</h3><p>Please review the attached file.</p>"
-        status = send_cv(user, recipient_email, cv_path, subject, html_body, gmail_creds)  # Make sure send_cv accepts creds
+        status = send_cv(user, recipient_email, cv_path, subject, html_body, gmail_creds)
         flash(status, "success" if "✅" in status else "danger")
     except Exception as e:
         print("🛑 Gmail send error:", e)
